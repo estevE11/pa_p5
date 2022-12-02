@@ -8,6 +8,7 @@ public class Producte {
 
     public Producte(int id){
         this.id = id;
+        this.prodReacciona = new ArrayList<Producte>();
     }
 
     public void addReaccio(Producte prod){
@@ -31,7 +32,7 @@ public class Producte {
         for (int i = 0; i < prodReacciona.size(); i++){
             cad += prodReacciona.get(i).getID()+", ";
         }
-        return cad;
+        return cad.substring(0, cad.length()-2); // Substring per retirar la ultima coma
     }
 
     @Override
