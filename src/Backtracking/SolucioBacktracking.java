@@ -9,7 +9,7 @@ public class SolucioBacktracking {
     public void solBack(int k){
         int valorAnt = 0;
         for (int i = 0; i< productes.length;i++){
-           for (int j = 0;j<magatzem[i].length;++){
+           for (int j = 0;j<magatzem[i].length;j++){
                if (!productes[k].reacciona(magatzem[i][j])){
                    magatzem[i][j+1]=productes[k];
                    solBack(k+1);
