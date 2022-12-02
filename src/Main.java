@@ -21,5 +21,25 @@ public class Main {
             }
             System.out.println(productes[i].toString());
         }
+
+        System.out.println("\nMatriu d'adjecència: ");
+        printTable(productes);
+    }
+
+    private static void printTable(Producte[] productes) {
+        System.out.print("   ");
+        for (int i = 0; i < productes.length; i++) { // Titols
+            System.out.print("P" + productes[i].getID() + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < productes.length; i++) { // Titols
+            System.out.print("P" + productes[i].getID() + " ");
+            Producte p1 = productes[i];
+            for (int j = 0; j < productes.length; j++) { // Titols
+                Producte p2 = productes[j];
+                System.out.print(" " + ((p1.reacciona(p2) || p2.reacciona(p1)) ? "T" : "F") + " ");
+            }
+            System.out.println();
+        }
     }
 }

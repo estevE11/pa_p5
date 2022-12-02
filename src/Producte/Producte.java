@@ -19,6 +19,15 @@ public class Producte {
         return id;
     }
 
+    public boolean reacciona(Producte p) {
+        if(p.getID() == this.id) return false;
+        for (int i = 0; i < this.prodReacciona.size(); i++) {
+            if (p.getID() == this.prodReacciona.get(i).getID())
+                return true;
+        }
+        return false;
+    }
+
     public Producte getProducteReacciona(int i) {
         return this.prodReacciona.get(i);
     }
