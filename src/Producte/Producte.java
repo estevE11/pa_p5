@@ -3,31 +3,39 @@ package Producte;
 import java.util.ArrayList;
 
 public class Producte {
-    private int nom;
-    private ArrayList<Producte> prod_reaciona;
+    private int id;
+    private ArrayList<Producte> prodReacciona;
 
-    public Producte(int nom){
-        this.nom = nom;
+    public Producte(int id){
+        this.id = id;
     }
 
     public void addReaccio(Producte prod){
-        this.prod_reaciona.add(prod);
+        this.prodReacciona.add(prod);
     }
 
-    public int getNom() {
-        return nom;
+    public int getID() {
+        return id;
     }
 
-    public String getProd_reaciona() {
+    public Producte getProducteReacciona(int i) {
+        return this.prodReacciona.get(i);
+    }
+
+    public int getNProductesReacciona(int i) {
+        return this.prodReacciona.size();
+    }
+
+    public String productesReaccionaString() {
         String cad="";
-        for (int i=0;i<prod_reaciona.size();i++){
-            cad+=prod_reaciona.get(i).getNom()+", ";
+        for (int i = 0; i < prodReacciona.size(); i++){
+            cad += prodReacciona.get(i).getID()+", ";
         }
         return cad;
     }
 
     @Override
     public String toString() {
-        return "Producte "+getNom()+"(P"+getNom()+"  amb incompatibilitats amb els productes:"+getProd_reaciona();
+        return "Producte " + getID() + " amb incompatibilitats amb els productes: " + productesReaccionaString();
     }
 }
