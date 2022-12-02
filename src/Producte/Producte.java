@@ -1,6 +1,7 @@
 package Producte;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Producte {
     private int id;
@@ -29,7 +30,11 @@ public class Producte {
     }
 
     public Producte getProducteReacciona(int i) {
-        return this.prodReacciona.get(i);
+        Iterator<Producte> it = this.prodReacciona.iterator();
+        while (it.hasNext()){
+            if (it.next().getID()==i) return it.next();
+        }
+        return null;
     }
 
     public int getNProductesReacciona(int i) {
