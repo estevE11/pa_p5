@@ -7,6 +7,8 @@ public class Producte {
     private int id;
     private ArrayList<Producte> prodReacciona;
 
+    private Iterator<Producte> it;
+
     public Producte(int id){
         this.id = id;
         this.prodReacciona = new ArrayList<Producte>();
@@ -22,8 +24,11 @@ public class Producte {
 
     public boolean reacciona(Producte p) {
         if(p.getID() == this.id) return false;
-        for (int i = 0; i < this.prodReacciona.size(); i++) {
-            if (p.getID() == this.prodReacciona.get(i).getID())
+        Producte prod = null;
+        this.startIteration();
+        while(this.itHasNext()) {
+            prod = this.getNext();
+            if (p.getID() == prod.getID())
                 return true;
         }
         return false;
@@ -35,6 +40,19 @@ public class Producte {
             if (it.next().getID()==i) return it.next();
         }
         return null;
+    }
+
+    // Reinicia el iterator
+    public void startIteration() {
+        this.it = this.prodReacciona.listIterator();
+    }
+
+    public Producte getNext() {
+        return this.it.next();
+    }
+
+    public boolean itHasNext() {
+        return this.it.hasNext();
     }
 
     public int getNProductesReacciona(int i) {

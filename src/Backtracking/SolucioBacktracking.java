@@ -62,14 +62,15 @@ public class SolucioBacktracking {
                     if (magatzem.size() < this.size_millor) {
                         this.size_millor = magatzem.size();
                         // clonar el magatzem actual en el magatzem millor;
+                        this.magatzem_millor = (LinkedList<LinkedList<Producte>>) magatzem.clone();
                         System.out.println("Millor!");
-                        for (int j = 0; j < magatzem.size(); j++) {
+                        for (int j = 0; j < magatzem_millor.size(); j++) {
                             System.out.println("En el magatzem " + (j + 1));
-                            LinkedList<Producte> mmm = magatzem.get(j);
+                            LinkedList<Producte> mmm = magatzem_millor.get(j);
                             for (int j2 = 0; j2 < mmm.size(); j2++) {
                                 System.out.println(mmm.get(j2).toString());
                             }
-                            System.out.println();
+                            //System.out.println();
                         }
                     }
                 }

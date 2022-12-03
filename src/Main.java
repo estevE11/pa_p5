@@ -7,7 +7,7 @@ public class Main {
         int[][] reaccions = {
                 new int[] { 2, 3 },
                 new int[] { 1, 5 },
-                new int[] { 1, 3 },
+                new int[] { 1, 4 },
                 new int[] { 5},
                 new int[] { 2 }
         };
