@@ -19,8 +19,6 @@ public class SolucioBacktracking {
     }
 
     public void solBack(int k) {
-        //System.out.println("> " + productes[k].getID());
-        //int valorAnt = 0;
         boolean entrado = false;
         int index_de_caja = -1;
         boolean caja_creada = false;
@@ -28,18 +26,15 @@ public class SolucioBacktracking {
         // la llista enllaçada varia, i al variar el iterador
         // retorna una exepció
         for (int i = 0; i < magatzem.size(); i++) {
-            //System.out.println("iteracion: k=" + k + " i=" + i);
             LinkedList<Producte> m = magatzem.get(i);
 
             if (m.size() == 0) {
                 m.add(this.productes[k]);
-                //System.out.println("1metido P" + this.productes[k].getID() + " en caja" + (i+1));
                 index_de_caja = i;
                 entrado = true;
             } else {
-                if (this.acceptable(k, m)/* && !m.contains()*/) {
+                if (this.acceptable(k, m)) {
                     m.add(this.productes[k]);
-                    //System.out.println("2metido P" + this.productes[k].getID() + " en caja" + (i+1));
                     index_de_caja = i;
                     entrado = true;
                 }
@@ -48,7 +43,6 @@ public class SolucioBacktracking {
             if (i == magatzem.size() - 1 && !entrado) {
                 LinkedList<Producte> new_m = new LinkedList<Producte>();
                 this.magatzem.add(new_m);
-                //System.out.println("3metido P" + this.productes[k].getID() + " en caja" + (i+2));
                 new_m.add(this.productes[k]);
                 index_de_caja = i+1;
                 entrado = true;
@@ -56,7 +50,6 @@ public class SolucioBacktracking {
             }
 
             if (entrado) {
-                //System.out.println("k=" + k + ", P" + this.productes[k].getID() + ", k=" + (this.productes.length-1) + "?");
                 if (k != this.productes.length - 1) {
                     solBack(k + 1);
                 } else {
@@ -66,11 +59,6 @@ public class SolucioBacktracking {
                         this.setMillorSolucio();
                     }
                 }
-                // deshacer
-                // (borrar el producto q acabamos de meter, de donde lo hemos puesto)
-                // - Quitar el producto de la caja en la que se ha metido
-                // - Si se ha creado una caja, borrarlas
-                //System.out.println("elim: borrando P" + productes[k].getID() + " de caja" + (index_de_caja+1));
                 this.borrar(k, index_de_caja, caja_creada);
             }
             entrado = false;
