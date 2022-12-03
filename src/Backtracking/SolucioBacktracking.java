@@ -82,8 +82,9 @@ public class SolucioBacktracking {
     
     private boolean acceptable(int k, LinkedList<Producte> m) {
         boolean val = true;
-        for (int j = 0; j < m.size() && val; j++) {
-            if (productes[k].reacciona(m.get(j))) {
+        Iterator<Producte> it = m.listIterator();
+        while (it.hasNext() && val) {
+            if (productes[k].reacciona(it.next())) {
                 val = false;
             }
         }
@@ -106,7 +107,7 @@ public class SolucioBacktracking {
         }
     }
 
-    public LinkedList<LinkedList<Producte>> getSolució() {
+    public LinkedList<LinkedList<Producte>> getSolucio() {
         return this.magatzem_millor;
     }
 }

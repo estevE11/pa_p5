@@ -36,13 +36,15 @@ public class Main {
         SolucioBacktracking sol = new SolucioBacktracking(productes);
         sol.solBack(0);
 
-        LinkedList<LinkedList<Producte>> solucio = sol.getSolució();
+        LinkedList<LinkedList<Producte>> solucio = sol.getSolucio();
 
-        for (int j = 0; j < solucio.size(); j++) {
-            System.out.println("En el magatzem " + (j + 1));
+        int size = solucio.size();
+        System.out.println("La solució trobada necessita " +  size + " compartiments.");
+        System.out.println("L'assignació es la seguent: \n");
+        for (int j = 0; j < size; j++) {
             LinkedList<Producte> mmm = solucio.get(j);
             for (int j2 = 0; j2 < mmm.size(); j2++) {
-                System.out.println(mmm.get(j2).toString());
+                System.out.println("Producte " + mmm.get(j2).getID() + " al compartiment " + (j+1));
             }
         }
 
