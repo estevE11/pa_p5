@@ -57,6 +57,6 @@ public class Producte {
 
     @Override
     public String toString() {
-        return "Producte " + getID() + " amb incompatibilitats amb els productes: " + productesReaccionaString();
+        return "Producte " + this.getID() + " (P" + this.getID() + ") amb incompatibilitats amb els productes: " + this.productesReaccionaString();
     }
 }

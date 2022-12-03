@@ -3,10 +3,7 @@ package Backtracking;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import javax.security.auth.callback.CallbackHandler;
-
 import Producte.Producte;
-import sun.awt.image.ImageWatched;
 
 public class SolucioBacktracking {
     private Producte[] productes;
