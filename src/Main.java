@@ -1,3 +1,4 @@
+import Backtracking.SolucioBacktracking;
 import Producte.Producte;
 
 public class Main {
@@ -24,6 +25,14 @@ public class Main {
 
         System.out.println("\nMatriu d'adjecència: ");
         printTable(productes);
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        SolucioBacktracking sol = new SolucioBacktracking(productes);
+        sol.solBack(0);
     }
 
     private static void printTable(Producte[] productes) {

@@ -1,0 +1,44 @@
+1.- Per què l’esquema de backtracking és aplicable per a resoldre aquest enunciat.
+
+El esquema de backtracking es pot aplicar en aquest problema ja que es tracta d'un problema d'optimització del qual
+la solució es pot expressar en forma d'arbre en el que es van fent decisions, en aquest cas, la decisió de
+si un producte va a un magatzem, a un altre o ha d'anar en un de nou.
+
+
+2.- Indica quina pregunta et fas en cada nivell de l’arbre. Quines són les possibles
+respostes d’aquesta pregunta (domini).
+
+Pregunta: El producte es pot col·locar a algun magatzem? (reacciona?)
+Respostes:
+    - Si
+    - No
+
+3.- Quin és el criteri per determinar si una decisió és o no acceptable.
+
+Una decisio es acceptable si el producte que volem afegir no reacciona amb cap dels
+productes que te el magatzem en el que el podriem posar.
+
+
+4.- Quin és el criteri per determinar si un conjunt de decisions és o no completable.
+
+Totes son comlpetables, ja que podries crear un magatzem per cada producte.
+
+
+5.- Quin és el criteri per determinar si un conjunt de decisions són o no solució.
+
+Quan tots els produtes han estat colocats a un magatzem (k = numero de productes)
+
+
+6.- Dibuixeu l’espai de cerca del problema, és a dir l’arbre que ha de recórrer la tècnica
+del backtracking, indica quina és l’alçada i l’amplada i si són valors exactes o valors
+màxims. Usaràs marcatge?.
+
+
+
+
+7.- Quin és el criteri per determinar si una solució és o no millor a una altra ja trobada
+prèviament.
+
+Si la solucio trobada te menys numero de magazems que la millor solucio, llavors aquesta passa a
+ser la millor solucio.
+
