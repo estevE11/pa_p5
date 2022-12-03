@@ -1,6 +1,8 @@
 import Backtracking.SolucioBacktracking;
 import Producte.Producte;
 
+import java.util.LinkedList;
+
 public class Main {
     public static void main(String[] args) {
         Producte[] productes = new Producte[5];
@@ -33,6 +35,17 @@ public class Main {
 
         SolucioBacktracking sol = new SolucioBacktracking(productes);
         sol.solBack(0);
+
+        LinkedList<LinkedList<Producte>> solucio = sol.getSolució();
+
+        for (int j = 0; j < solucio.size(); j++) {
+            System.out.println("En el magatzem " + (j + 1));
+            LinkedList<Producte> mmm = solucio.get(j);
+            for (int j2 = 0; j2 < mmm.size(); j2++) {
+                System.out.println(mmm.get(j2).toString());
+            }
+        }
+
     }
 
     private static void printTable(Producte[] productes) {

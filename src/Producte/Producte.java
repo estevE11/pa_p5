@@ -34,14 +34,6 @@ public class Producte {
         return false;
     }
 
-    public Producte getProducteReacciona(int i) {
-        Iterator<Producte> it = this.prodReacciona.iterator();
-        while (it.hasNext()){
-            if (it.next().getID()==i) return it.next();
-        }
-        return null;
-    }
-
     // Reinicia el iterator
     public void startIteration() {
         this.it = this.prodReacciona.listIterator();
@@ -53,10 +45,6 @@ public class Producte {
 
     public boolean itHasNext() {
         return this.it.hasNext();
-    }
-
-    public int getNProductesReacciona(int i) {
-        return this.prodReacciona.size();
     }
 
     public String productesReaccionaString() {

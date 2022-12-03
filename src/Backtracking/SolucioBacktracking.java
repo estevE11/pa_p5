@@ -1,10 +1,12 @@
 package Backtracking;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.security.auth.callback.CallbackHandler;
 
 import Producte.Producte;
+import sun.awt.image.ImageWatched;
 
 public class SolucioBacktracking {
     private Producte[] productes;
@@ -25,6 +27,9 @@ public class SolucioBacktracking {
         boolean entrado = false;
         int index_de_caja = -1;
         boolean caja_creada = false;
+        // No podem utilitzar un iterador ja que la dimensió de
+        // la llista enllaçada varia, i al variar el iterador
+        // retorna una exepció
         for (int i = 0; i < magatzem.size(); i++) {
             //System.out.println("iteracion: k=" + k + " i=" + i);
             LinkedList<Producte> m = magatzem.get(i);
@@ -58,20 +63,10 @@ public class SolucioBacktracking {
                 if (k != this.productes.length - 1) {
                     solBack(k + 1);
                 } else {
-                    System.out.println("Solució trobada! " + magatzem.size());
-                    if (magatzem.size() < this.size_millor) {
-                        this.size_millor = magatzem.size();
-                        // clonar el magatzem actual en el magatzem millor;
-                        this.magatzem_millor = (LinkedList<LinkedList<Producte>>) magatzem.clone();
-                        System.out.println("Millor!");
-                        for (int j = 0; j < magatzem_millor.size(); j++) {
-                            System.out.println("En el magatzem " + (j + 1));
-                            LinkedList<Producte> mmm = magatzem_millor.get(j);
-                            for (int j2 = 0; j2 < mmm.size(); j2++) {
-                                System.out.println(mmm.get(j2).toString());
-                            }
-                            //System.out.println();
-                        }
+                    int mag_size = magatzem.size();
+                    if (mag_size < this.size_millor) {
+                        this.size_millor = mag_size;
+                        this.setMillorSolucio();
                     }
                 }
                 // deshacer
@@ -100,5 +95,18 @@ public class SolucioBacktracking {
         caja.remove(this.productes[k]);
         if (creada)
             this.magatzem.removeLast();
+    }
+
+    private void setMillorSolucio() {
+        this.magatzem_millor = new LinkedList<LinkedList<Producte>>();
+        Iterator<LinkedList<Producte>> it = this.magatzem.iterator();
+        while (it.hasNext()) {
+            LinkedList<Producte> p = it.next();
+            this.magatzem_millor.add((LinkedList<Producte>) p.clone());
+        }
+    }
+
+    public LinkedList<LinkedList<Producte>> getSolució() {
+        return this.magatzem_millor;
     }
 }
