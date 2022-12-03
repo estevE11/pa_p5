@@ -9,6 +9,9 @@ import Producte.Producte;
 public class SolucioBacktracking {
     private Producte[] productes;
     private LinkedList<LinkedList<Producte>> magatzem;
+    
+    private LinkedList<LinkedList<Producte>> magatzem_millor;
+    private int size_millor = 30000;
 
     public SolucioBacktracking(Producte[] productes) {
         this.productes = productes;
@@ -17,21 +20,24 @@ public class SolucioBacktracking {
     }
 
     public void solBack(int k) {
+        //System.out.println("> " + productes[k].getID());
         //int valorAnt = 0;
-        System.out.println("k = " + this.productes[k].getID());
         boolean entrado = false;
         int index_de_caja = -1;
         boolean caja_creada = false;
         for (int i = 0; i < magatzem.size(); i++) {
+            //System.out.println("iteracion: k=" + k + " i=" + i);
             LinkedList<Producte> m = magatzem.get(i);
 
             if (m.size() == 0) {
                 m.add(this.productes[k]);
+                //System.out.println("1metido P" + this.productes[k].getID() + " en caja" + (i+1));
                 index_de_caja = i;
                 entrado = true;
             } else {
-                if (this.acceptable(k, m)) {
+                if (this.acceptable(k, m)/* && !m.contains()*/) {
                     m.add(this.productes[k]);
+                    //System.out.println("2metido P" + this.productes[k].getID() + " en caja" + (i+1));
                     index_de_caja = i;
                     entrado = true;
                 }
@@ -40,29 +46,42 @@ public class SolucioBacktracking {
             if (i == magatzem.size() - 1 && !entrado) {
                 LinkedList<Producte> new_m = new LinkedList<Producte>();
                 this.magatzem.add(new_m);
+                //System.out.println("3metido P" + this.productes[k].getID() + " en caja" + (i+2));
                 new_m.add(this.productes[k]);
                 index_de_caja = i+1;
                 entrado = true;
                 caja_creada = true;
             }
 
-            if (entrado) {                
+            if (entrado) {
+                //System.out.println("k=" + k + ", P" + this.productes[k].getID() + ", k=" + (this.productes.length-1) + "?");
                 if (k != this.productes.length - 1) {
                     solBack(k + 1);
                 } else {
                     System.out.println("Solució trobada! " + magatzem.size());
-                    return;
+                    if (magatzem.size() < this.size_millor) {
+                        this.size_millor = magatzem.size();
+                        // clonar el magatzem actual en el magatzem millor;
+                        System.out.println("Millor!");
+                        for (int j = 0; j < magatzem.size(); j++) {
+                            System.out.println("En el magatzem " + (j + 1));
+                            LinkedList<Producte> mmm = magatzem.get(j);
+                            for (int j2 = 0; j2 < mmm.size(); j2++) {
+                                System.out.println(mmm.get(j2).toString());
+                            }
+                            System.out.println();
+                        }
+                    }
                 }
+                // deshacer
+                // (borrar el producto q acabamos de meter, de donde lo hemos puesto)
+                // - Quitar el producto de la caja en la que se ha metido
+                // - Si se ha creado una caja, borrarlas
+                //System.out.println("elim: borrando P" + productes[k].getID() + " de caja" + (index_de_caja+1));
+                this.borrar(k, index_de_caja, caja_creada);
             }
+            entrado = false;
         }
-        // deshacer
-        // (borrar el producto q acabamos de meter, de donde lo hemos puesto)
-        // - Quitar el producto de la caja en la que se ha metido
-        // - Si se ha creado una caja, borrarla
-        this.magatzem.get(index_de_caja).remove(this.productes[k]);
-        if(caja_creada)
-            this.magatzem.removeLast();
-
     }
     
     private boolean acceptable(int k, LinkedList<Producte> m) {
@@ -73,5 +92,12 @@ public class SolucioBacktracking {
             }
         }
         return val;
+    }
+
+    private void borrar(int k, int i_caja, boolean creada) {
+        LinkedList<Producte> caja = this.magatzem.get(i_caja);
+        caja.remove(this.productes[k]);
+        if (creada)
+            this.magatzem.removeLast();
     }
 }
