@@ -7,11 +7,11 @@ public class Main {
     public static void main(String[] args) {
         Producte[] productes = new Producte[5];
         int[][] reaccions = {
-                new int[] { 2, 3 },
-                new int[] { 1, 5 },
-                new int[] { 1, 4 },
-                new int[] { 5},
-                new int[] { 2 }
+                new int[] { 3, 4, 5 },
+                new int[] { 3, 4},
+                new int[] { 1, 2 },
+                new int[] { 1, 5, 2 },
+                new int[] { 1, 4 }
         };
 
         for (int i = 0; i < productes.length; i++) {

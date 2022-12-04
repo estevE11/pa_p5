@@ -19,9 +19,9 @@ public class SolucioBacktracking {
     }
 
     public void solBack(int k) {
-        boolean entrado = false;
-        int index_de_caja = -1;
-        boolean caja_creada = false;
+        boolean added = false;
+        int i_compartment = -1;
+        boolean compatment_created = false;
         // No podem utilitzar un iterador ja que la dimensió de
         // la llista enllaçada varia, i al variar el iterador
         // retorna una exepció
@@ -30,26 +30,24 @@ public class SolucioBacktracking {
 
             if (m.size() == 0) {
                 m.add(this.productes[k]);
-                index_de_caja = i;
-                entrado = true;
+                i_compartment = i;
+                added = true;
             } else {
                 if (this.acceptable(k, m)) {
                     m.add(this.productes[k]);
-                    index_de_caja = i;
-                    entrado = true;
+                    i_compartment = i;
+                    added = true;
                 }
             }
 
-            if (i == magatzem.size() - 1 && !entrado) {
-                LinkedList<Producte> new_m = new LinkedList<Producte>();
-                this.magatzem.add(new_m);
-                new_m.add(this.productes[k]);
-                index_de_caja = i+1;
-                entrado = true;
-                caja_creada = true;
+            if (i == magatzem.size() - 1 && !added) {
+                this.addCompartment(k);
+                i_compartment = i+1;
+                added = true;
+                compatment_created = true;
             }
 
-            if (entrado) {
+            if (added) {
                 if (k != this.productes.length - 1) {
                     solBack(k + 1);
                 } else {
@@ -59,12 +57,18 @@ public class SolucioBacktracking {
                         this.setMillorSolucio();
                     }
                 }
-                this.borrar(k, index_de_caja, caja_creada);
+                this.borrar(k, i_compartment, compatment_created);
             }
-            entrado = false;
+            added = false;
         }
     }
     
+    private void addCompartment(int k) {
+        LinkedList<Producte> new_m = new LinkedList<Producte>();
+        this.magatzem.add(new_m);
+        new_m.add(this.productes[k]);
+    }
+
     private boolean acceptable(int k, LinkedList<Producte> m) {
         boolean val = true;
         Iterator<Producte> it = m.listIterator();
