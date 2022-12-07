@@ -1,4 +1,5 @@
 import Backtracking.SolucioBacktracking;
+import Greedy.SolucioVoraç;
 import Producte.Producte;
 
 import java.util.LinkedList;
@@ -35,6 +36,8 @@ public class Main {
 
         SolucioBacktracking sol = new SolucioBacktracking(productes);
         sol.solBack(0);
+        //SolucioVoraç sol = new SolucioVoraç(productes);
+        //sol.solVor();
 
         LinkedList<LinkedList<Producte>> solucio = sol.getSolucio();
 
