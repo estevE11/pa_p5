@@ -34,6 +34,17 @@ public class Producte {
         return false;
     }
 
+    public int numReaccions() {
+        int count = 0;
+        Producte prod = null;
+        this.startIteration();
+        while(this.itHasNext()) {
+            prod = this.getNext();
+            count++;
+        }
+        return count;
+    }
+
     // Reinicia el iterator
     public void startIteration() {
         this.it = this.prodReacciona.listIterator();

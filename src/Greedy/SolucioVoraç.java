@@ -8,6 +8,7 @@ import Producte.Producte;
 public class SolucioVoraç {
     private Producte[] productes;
     private boolean[] tracked;
+    private int[] numReaccions;
     private LinkedList<LinkedList<Producte>> magatzem;
 
     public SolucioVoraç(Producte[] productes) {
@@ -15,6 +16,12 @@ public class SolucioVoraç {
         this.tracked = new boolean[this.productes.length];
         for (int i = 0; i < this.tracked.length; i++) {
             this.tracked[i] = false;
+        }
+        // Precalculem els nombres de reaccions de cada producte, ja que mai varien
+        // i sino seria un cost extra innecessari.
+        this.numReaccions = new int[this.productes.length];
+        for (int i = 0; i < this.numReaccions.length; i++) {
+            this.numReaccions[i] = this.productes[i].numReaccions();
         }
         this.magatzem = new LinkedList<LinkedList<Producte>>();
         this.magatzem.add(new LinkedList<Producte>());
@@ -53,13 +60,21 @@ public class SolucioVoraç {
     // Retorna null si no queden mes candidats
     // Aixi ens serveix per saber si s'ha trobat la solucio
     private Producte getNextBest() {
+        Producte best = null;
+        int idx = -1;
+        int nReac = 9999999;
         for (int i = 0; i < this.productes.length; i++) {
             if (this.tracked[i])
                 continue;
-            this.tracked[i] = true;
-            return this.productes[i];
+            if(this.numReaccions[i] < nReac) {
+                best = this.productes[i];
+                idx = i;
+                nReac = this.numReaccions[i];
+            }
         }
-        return null;
+        if(best == null) return null;
+        this.tracked[idx] = true;
+        return best;
     }
 
     private boolean acceptable(Producte p, LinkedList<Producte> m) {
