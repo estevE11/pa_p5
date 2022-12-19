@@ -3,28 +3,11 @@ import Greedy.SolucioVoraç;
 import Producte.Producte;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        Producte[] productes = new Producte[5];
-        int[][] reaccions = {
-                new int[] { 3, 4, 5 },
-                new int[] { 3, 4},
-                new int[] { 1, 2 },
-                new int[] { 1, 5, 2 },
-                new int[] { 1, 4 }
-        };
-
-        for (int i = 0; i < productes.length; i++) {
-            productes[i] = new Producte(i + 1);
-        }
-
-        for (int i = 0; i < productes.length; i++) {
-            for (int j = 0; j < reaccions[i].length; j++) {
-                productes[i].addReaccio(productes[reaccions[i][j] - 1]);
-            }
-            System.out.println(productes[i].toString());
-        }
+        Producte[] productes = generateRandomInput(10);
 
         System.out.println("\nMatriu d'adjecència: ");
         printTable(productes);
@@ -58,6 +41,40 @@ public class Main {
         printSolucio(solucio2);
         System.out.println("Temps: " + t_sol2);
 
+    }
+
+    private static Producte[] generateRandomInput(int n) {
+        int[][] reaccions = new int[n][n];
+        Producte[] productes = new Producte[n];
+
+        // Generant taula reaccions aleatories
+        Random r = new Random();
+        int nReac = Math.floorDiv(n*n, 4); // numero de reaccions
+        for(int i = 0; i < nReac; i++) {
+            int col = r.nextInt(n);
+            int row = r.nextInt(n);
+            while(col == row || row < col || reaccions[col][row] == 1) {
+                col = r.nextInt(n);
+                row = r.nextInt(n);
+            }
+            reaccions[col][row] = 1;
+        }
+
+        for (int i = 0; i < productes.length; i++) {
+            productes[i] = new Producte(i + 1);
+        }
+
+        for (int i = 0; i < productes.length; i++) {
+            for (int j = i+1; j < reaccions[i].length; j++) {
+                if(reaccions[i][j] == 1) {
+                    productes[i].addReaccio(productes[j]);
+                    productes[j].addReaccio(productes[i]);
+                }
+            }
+            System.out.println(productes[i].toString());
+        }
+
+        return productes;
     }
 
     private static void printTable(Producte[] productes) {
