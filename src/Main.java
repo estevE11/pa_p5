@@ -1,4 +1,5 @@
 import Backtracking.SolucioBack;
+import Greedy.SolucioVoraç;
 import Producte.Producte;
 
 import java.util.LinkedList;
@@ -33,22 +34,29 @@ public class Main {
         System.out.println();
         System.out.println();
 
-        SolucioBack sol = new SolucioBack(productes);
-        sol.solBack(0);
-        //SolucioVoraç sol = new SolucioVoraç(productes);
-        //sol.solVor();
+        SolucioBack solBack = new SolucioBack(productes);
+        SolucioVoraç solVor = new SolucioVoraç(productes);
 
-        LinkedList<LinkedList<Producte>> solucio = sol.getSolucio();
+        long t_sol1 = 0;
+        long t_sol2 = 0;
+        long start = System.currentTimeMillis();
+        solBack.solBack(0);
+        long end = System.currentTimeMillis();
+        t_sol1 = end-start;
+        start = System.currentTimeMillis();
+        solVor.solVor();
+        end = System.currentTimeMillis();
+        t_sol2 = end-start;
 
-        int size = solucio.size();
-        System.out.println("La solució trobada necessita " +  size + " compartiments.");
-        System.out.println("L'assignació es la seguent: \n");
-        for (int j = 0; j < size; j++) {
-            LinkedList<Producte> mmm = solucio.get(j);
-            for (int j2 = 0; j2 < mmm.size(); j2++) {
-                System.out.println("Producte " + mmm.get(j2).getID() + " al compartiment " + (j+1));
-            }
-        }
+        LinkedList<LinkedList<Producte>> solucio1 = solBack.getSolucio();
+        LinkedList<LinkedList<Producte>> solucio2 = solVor.getSolucio();
+
+        printSolucio(solucio1);
+        System.out.println("Temps: " + t_sol1);
+        System.out.println("");
+        System.out.println("");
+        printSolucio(solucio2);
+        System.out.println("Temps: " + t_sol2);
 
     }
 
@@ -66,6 +74,18 @@ public class Main {
                 System.out.print(" " + ((p1.reacciona(p2) || p2.reacciona(p1)) ? "T" : "F") + " ");
             }
             System.out.println();
+        }
+    }
+
+    private static void printSolucio(LinkedList<LinkedList<Producte>> solucio) {
+        int size = solucio.size();
+        System.out.println("La solució trobada necessita " +  size + " compartiments.");
+        System.out.println("L'assignació es la seguent: \n");
+        for (int j = 0; j < size; j++) {
+            LinkedList<Producte> mmm = solucio.get(j);
+            for (int j2 = 0; j2 < mmm.size(); j2++) {
+                System.out.println("Producte " + mmm.get(j2).getID() + " al compartiment " + (j+1));
+            }
         }
     }
 }
