@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        Producte[] productes = generateRandomInput(10);
+        Producte[] productes = generateRandomInput(20);
 
         System.out.println("\nMatriu d'adjecència: ");
         printTable(productes);
@@ -22,10 +22,12 @@ public class Main {
 
         long t_sol1 = 0;
         long t_sol2 = 0;
+
         long start = System.currentTimeMillis();
         solBack.solBack(0);
         long end = System.currentTimeMillis();
         t_sol1 = end-start;
+
         start = System.currentTimeMillis();
         solVor.solVor();
         end = System.currentTimeMillis();
@@ -35,11 +37,11 @@ public class Main {
         LinkedList<LinkedList<Producte>> solucio2 = solVor.getSolucio();
 
         printSolucio(solucio1);
-        System.out.println("Temps: " + t_sol1);
+        System.out.println("Temps: " + t_sol1 + "ms");
         System.out.println("");
         System.out.println("");
         printSolucio(solucio2);
-        System.out.println("Temps: " + t_sol2);
+        System.out.println("Temps: " + t_sol2 + "ms");
 
     }
 
