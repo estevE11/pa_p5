@@ -85,12 +85,15 @@ public class Main {
             System.out.print("P" + productes[i].getID() + " ");
         }
         System.out.println();
+
+        int spacing = String.valueOf(productes.length).length();
         for (int i = 0; i < productes.length; i++) { // Titols
             System.out.print("P" + productes[i].getID() + " ");
             Producte p1 = productes[i];
             for (int j = 0; j < productes.length; j++) { // Titols
                 Producte p2 = productes[j];
-                System.out.print(" " + ((p1.reacciona(p2) || p2.reacciona(p1)) ? "T" : "F") + " ");
+                for(int ii = 0; ii < spacing; ii++) System.out.print(" ");
+                System.out.print(((p1.reacciona(p2) || p2.reacciona(p1)) ? "T" : "F") + " ");
             }
             System.out.println();
         }
