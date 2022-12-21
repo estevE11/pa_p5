@@ -2,8 +2,10 @@ package Backtracking;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 import Producte.Producte;
+import utils.Utils;
 
 public class SolucioBack {
     private Producte[] productes;
@@ -98,5 +100,32 @@ public class SolucioBack {
 
     public LinkedList<LinkedList<Producte>> getSolucio() {
         return this.magatzem_millor;
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = Utils.readInt("Introdueix el numero de productes", sc);
+        Producte[] productes = Utils.generateRandomInput(n);
+
+        System.out.println("\nMatriu d'adjecència: ");
+        Utils.printTable(productes);
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        SolucioBack solBack = new SolucioBack(productes);
+
+        long t_sol1 = 0;
+        long start = System.currentTimeMillis();
+        solBack.solBack(0);
+        long end = System.currentTimeMillis();
+        t_sol1 = end - start;
+
+        LinkedList<LinkedList<Producte>> solucio = solBack.getSolucio();
+        System.out.println("BACKTRACKING:");
+        Utils.printSolucio(solucio);
+        System.out.println("\nTemps: " + t_sol1 + "ms");
     }
 }
